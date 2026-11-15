@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Modeling & Simulation – Exam</title>
+<style>
+:root{--bg:#e9edf0;--card:#fff;--tx:#222;--mut:#666;--bd:#c9d1d6;--gr:#2f8a5b;--bl:#1fa1c4;--ok:#d7f3e0;--okb:#2e9e5b;--no:#fde0e0;--nob:#d33;--ex:#fff8dc}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b2024;--card:#262c31;--tx:#e8eaec;--mut:#9aa4ab;--bd:#3d464d;--ok:#1d4a2f;--no:#5a2424;--ex:#4a4521}}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:var(--bg);color:var(--tx);font-family:Arial,Helvetica,sans-serif;font-size:14px;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.top{background:var(--gr);color:#fff;text-align:center;padding:12px 8px;font-size:17px}
+.wrap{display:flex;gap:12px;padding:12px;max-width:1100px;margin:auto;flex-wrap:wrap}
+.main{flex:1 1 560px;min-width:0}.side{flex:0 0 190px;background:var(--card);border:1px solid var(--bd);padding:10px;align-self:flex-start}
+.bar{background:var(--card);border:1px solid var(--bd);padding:6px 8px;font-size:12px;display:flex;justify-content:space-between;align-items:center}
+.fs button{background:var(--bl);color:#fff;border:0;margin-left:3px;padding:2px 8px;cursor:pointer}
+.q{background:var(--card);border:1px solid var(--bd);min-height:340px;padding:16px 18px;margin-top:8px}
+.q b{display:block;margin-bottom:6px}.qt{margin-bottom:18px;line-height:1.5}
+.o{display:flex;align-items:flex-start;gap:8px;padding:7px 8px;margin:2px 0;cursor:pointer;border:1px solid transparent;border-radius:3px}
+.o input{margin-top:3px}.o.ok{background:var(--ok);border-color:var(--okb)}.o.no{background:var(--no);border-color:var(--nob)}.o.lock{cursor:default}
+.ex{margin-top:14px;padding:10px 12px;border-left:4px solid #e0b400;background:var(--ex);line-height:1.6}
+.res{font-weight:bold;margin-bottom:4px}.res.g{color:var(--okb)}.res.r{color:var(--nob)}
+.btns{display:flex;gap:8px;margin-top:10px}.btns button,.btns label{padding:7px 14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;font-size:13px}
+.btns .sv{background:var(--bl);color:#fff;border-color:var(--bl);font-weight:bold}
+.side p{margin:4px 0;font-size:12px;color:var(--mut)}.cnt{display:flex;gap:6px;align-items:center;margin-bottom:8px}.cnt span{background:var(--bl);color:#fff;padding:2px 6px;font-size:12px;min-width:26px;text-align:center}.cnt small{font-size:10px;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}.grid button{border:0;padding:7px 0;cursor:pointer;background:#9aa4ab;color:#fff;font-size:12px}
+.grid .a{background:var(--okb)}.grid .w{background:var(--nob)}.grid .m{outline:3px solid #e0b400}.grid .c{box-shadow:0 0 0 2px var(--tx)}
+.fin{text-align:center;padding:30px 10px;font-size:18px}
+@media(max-width:700px){.side{flex:1 1 100%}.grid{grid-template-columns:repeat(6,1fr)}}
+</style></head><body>
+<div class="top">Faculty of Science - Fourth Level - Mathematics Department - Modeling &amp; Simulation - Exam</div>
+<div class="wrap"><div class="main">
+<div class="bar"><span>Total questions in exam: <b id="tot"></b> | Answered: <b id="ans">0</b> | Correct: <b id="cor">0</b></span><span class="fs"><button onclick="fs(-1)">A-</button><button onclick="fs(0)">A</button><button onclick="fs(1)">A+</button></span></div>
+<div class="q" id="q"></div>
+<div class="btns"><button class="sv" onclick="nxt()">Save &amp; Next</button><label><input type="checkbox" id="mk" onchange="mark()"> Mark for Review</label></div>
+</div>
+<div class="side"><p>User: <b>Student</b></p><p>Number of marked</p><div class="cnt"><span id="nm">0</span></div><p>Number of questions</p><div class="cnt"><span id="na">0</span><small>Answered</small></div><div class="cnt"><span id="nn" style="background:#9aa4ab"></span><small>Not Visited</small></div><div class="grid" id="grid"></div></div></div>
+<script>
+const Q=[
+["Which of the following is step 1 for Developing Simulation Model?",["Identify the problem","Design the problem","Collect and start processing the system data","Develop the model using class diagram"],0,"أول خطوة في بناء أي simulation model هي Identify the problem (تحديد المشكلة والأهداف). باقي الخطوات بتيجي بعدها."],
+["Which type of simulation is used to model the flow of entities through a system?",["System Dynamics","Discrete Event Simulation","Continuous Simulation","Agent-Based Simulation"],1,"Discrete Event Simulation (DES) بتمثل تدفق الـ entities (عملاء، قطع…) خلال النظام على هيئة أحداث منفصلة في الزمن."],
+["What is a key benefit of using simulation in decision-making processes?",["Reducing complexity","Ignoring uncertainties","Speeding up time","None of the above"],2,"الـ simulation بتضغط الزمن (time compression): تجرب شهور أو سنين في دقايق قبل اتخاذ القرار. تجاهل عدم اليقين مش ميزة، والمحاكاة مش بتقلل تعقيد النظام نفسه."],
+["How does 'validation' differ from 'verification' in simulation and modeling?",["Validation assesses the model's accuracy, while verification checks for errors","Validation checks for errors, while verification assesses the model's accuracy","Both terms are synonymous in the context of simulation","None of the mentioned"],0,"Validation = هل الموديل بيمثل الواقع بدقة؟ (Building the right model). Verification = هل الموديل اتبنى صح وخالي من أخطاء؟ (Building the model right)."],
+["As simulation is not an analytical model, therefore the result of simulation must be viewed as",["Unrealistic","Approximation","Exact","Simplified"],1,"الـ simulation مش حل تحليلي، فنتايجها تقديرات إحصائية مش قيم دقيقة، يعني Approximation."],
+["Which of the following is NOT a type of simulation model?",["Discrete-event simulation","Synchronous simulation","Continuous simulation","Agent-Based Simulation"],1,"الأنواع المعروفة: Discrete-event وContinuous وAgent-Based (وSystem Dynamics). Synchronous simulation مش نوع منهم."],
+["In discrete-event simulation, the system state changes:",["At regular time intervals","Randomly, with no set pattern","Only at distinct event times","None of the mentioned"],2,"في DES حالة النظام ما بتتغيرش إلا لحظة وقوع حدث (وصول، بداية خدمة، مغادرة…)، وما بين الأحداث ثابتة."],
+["In modeling, an \"abstraction\" refers to:",["A highly detailed replica of a system","Removing essential parts of the system","Adding more components to increase accuracy","Simplifying a system by focusing on key aspects"],3,"Abstraction = تبسيط النظام بالتركيز على الجوانب المهمة للهدف وإهمال التفاصيل غير المؤثرة."],
+["Which of the following is NOT an advantage of using simulation?",["Ability to test scenarios without risk","Ability to analyze “what-if” scenarios","Reduced cost for testing complex systems","Complete accuracy in predicting real-world behavior"],3,"الـ simulation مش بتديك دقة كاملة؛ نتايجها تقريبية ومعتمدة على جودة الموديل والبيانات. باقي الاختيارات مميزات حقيقية."],
+["What is the main difference between a \"model\" and a \"simulation\"?",["A model is more complex than a simulation","A model is always static, whereas a simulation is dynamic","A simulation requires no data, while a model does","None of the mentioned"],1,"الـ model هو التمثيل (غالبًا ساكن)، والـ simulation هي تشغيل الموديل عبر الزمن لمشاهدة سلوك النظام (ديناميكي)."],
+["In which stage of the simulation process is \"data collection\" most important?",["Verification","Model validation","Conceptual modeling","Model implementation"],2,"جمع البيانات بيتحدد ويتخطط في مرحلة Conceptual modeling: الموديل المفاهيمي بيحدد البيانات المطلوبة ومدخلاتها قبل التنفيذ."],
+["Which of the following types of simulation is commonly used to simulate customer service scenarios, such as waiting lines?",["System dynamics simulation","Queuing simulation","Agent-based simulation","None of the mentioned"],1,"طوابير الانتظار وخدمة العملاء هي المجال الأساسي لـ Queuing simulation (عملاء، سيرفر، وقت انتظار)."],
+["Which of the following best describes a \"conceptual model\" in simulation?",["A detailed operational model with all data implemented","An initial, evolving abstraction of the system under investigation","A strict mathematical representation without simplifications","None of the mentioned"],1,"الـ conceptual model هو تجريد مبدئي للنظام قيد الدراسة، وبيتطور مع زيادة الفهم، وبيتم قبل التنفيذ والبيانات الكاملة."],
+["Design of Experiments (DoE) in simulation helps to:",["Eliminate the need for validation","Simplify data collection","Minimize the number of simulation runs","None of the Mentioned"],2,"الـ DoE بتخطط التجارب بحيث تحصل على أكبر معلومات بأقل عدد من الـ runs. مش بتلغي الـ validation."],
+["In configuration control, what is the main objective?",["To modify the model frequently during the simulation process","To preserve the system setting after passing tests","To ensure the model runs in real-time","None of the Mentioned"],1,"Configuration control هدفها الحفاظ على إعدادات النظام/الموديل بعد اجتياز الاختبارات وعدم تغييرها بدون ضبط وتوثيق."],
+["In the Modeling and Simulation Life Cycle Process, what is the purpose of the simulation plan?",["To outline project goals, stages, time requirements, and resources","To verify that the model matches real-world behavior","To test the simulation’s performance under various conditions","To provide alternative designs for the simulation model"],0,"الـ simulation plan بيوضح أهداف المشروع ومراحله والوقت والموارد المطلوبة. التحقق من مطابقة الواقع هو دور الـ validation."],
+["Which of the following would likely be a Measure of Performance (MOP) in the gas station simulation?",["Number of attendants employed","Customer service time for passenger cars","Total gas consumed by each vehicle type","Hours of operation of the gas station"],1,"الـ MOP مقياس أداء ناتج من النظام، و Customer service time مقياس أداء. باقي الاختيارات مدخلات أو إعدادات للنظام."],
+["Conceptual models should meet which of the following requirements?",["Be visually appealing and include all technical details","Use only textual descriptions and minimal graphics","Be readable and convey the concept of the system","All of the mentioned"],2,"المطلوب في الـ conceptual model إنه يكون مقروء ويوصل فكرة النظام بوضوح، مش بالضرورة جذاب أو فيه كل التفاصيل التقنية."],
+["A dynamic system, such as an engine, is characterized by:",["Having components that perform a single, unchanging function","Having components that work together to transform inputs into outputs","Always operating without any user input or control","None of the mentioned"],1,"النظام الديناميكي مكوناته بتشتغل مع بعض لتحويل المدخلات إلى مخرجات، وحالته بتتغير مع الزمن."],
+["In an ERD, which symbol is typically used to represent an attribute of an entity?",["Rectangle","Oval","Diamond","None of the Mentioned"],1,"في الـ ERD: Rectangle = Entity، Diamond = Relationship، Oval = Attribute."],
+["The term \"MODSIM\" emphasizes:",["Using only live simulations","Excluding abstraction","Modeling before simulation","Prioritizing hardware over software"],2,"MODSIM = Modeling and Simulation، والتركيز فيه على بناء الموديل الأول قبل تشغيل المحاكاة."],
+["A \"data-poor\" system refers to:",["Abundant historical data","Overly complex models","Real-time data streams","Limited or low-quality data"],3,"Data-poor يعني نظام بياناته قليلة أو ضعيفة الجودة، عكس الـ data-rich."],
+["Which is NOT a simulation methodology?",["Discrete event","Continuous","Fluid flow","None of the Mentioned"],2,"منهجيات المحاكاة المعروفة: Discrete event وContinuous (وAgent-based وSystem dynamics). Fluid flow مش منهجية محاكاة بالمعنى ده."],
+["A \"scenario\" in simulation refers to:",["Initial conditions and event timelines","Only the conceptual model","A single run of the model","None of the Mentioned"],0,"الـ scenario هو الشروط الابتدائية وتسلسل الأحداث الزمنية اللي بتعرّف حالة تشغيل معينة للمحاكاة (هو ما تم تحديده في إجابة الامتحان)."]
+];
+const L="abcd",st=Q.map(()=>({s:null,m:false,v:false}));let cur=0,fz=14;
+tot.textContent=Q.length;
+function draw(){const d=Q[cur],s=st[cur];s.v=true;
+let h=`<b>Question No. ${cur+1}</b><div class="qt">${d[0]}</div>`;
+d[1].forEach((o,i)=>{let c="o";if(s.s!==null){c+=" lock";if(i===d[2])c+=" ok";else if(i===s.s)c+=" no"}
+h+=`<label class="${c}"><input type="radio" name="r" ${s.s===i?"checked":""} ${s.s!==null?"disabled":""} onclick="pick(${i})"><span>${L[i]}. ${o}</span></label>`});
+if(s.s!==null){const ok=s.s===d[2];h+=`<div class="ex"><div class="res ${ok?"g":"r"}">${ok?"✔ Correct":"✘ Wrong"} — الإجابة الصحيحة: ${L[d[2]]}. ${d[1][d[2]]}</div><div dir="auto">${d[3]}</div></div>`}
+q.innerHTML=h;mk.checked=s.m;upd()}
+function pick(i){if(st[cur].s!==null)return;st[cur].s=i;draw()}
+function nxt(){if(cur<Q.length-1){cur++;draw()}else{const c=st.filter((s,i)=>s.s===Q[i][2]).length;q.innerHTML=`<div class="fin">Score: <b>${c} / ${Q.length}</b></div>`}}
+function mark(){st[cur].m=mk.checked;upd()}
+function go(i){cur=i;draw()}
+function fs(d){fz=d?fz+d:14;document.querySelector(".q").style.fontSize=fz+"px"}
+function upd(){const a=st.filter(s=>s.s!==null).length;ans.textContent=a;na.textContent=a;nn.textContent=st.filter(s=>!s.v).length;nm.textContent=st.filter(s=>s.m).length;
+cor.textContent=st.filter((s,i)=>s.s===Q[i][2]).length;
+grid.innerHTML=st.map((s,i)=>`<button class="${s.s===null?"":s.s===Q[i][2]?"a":"w"} ${s.m?"m":""} ${i===cur?"c":""}" onclick="go(${i})">${i+1}</button>`).join("")}
+draw();
+</script></body></html>
